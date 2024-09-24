@@ -113,4 +113,45 @@ void UpdateGame()
         y++;
         break;
     }
+
+    if (x >= width || x < 0 || y >= height || y < 0)
+        isGameOver = true;
+
+    for (int i = 0; i < snakeTailLen; i++)
+    {
+        if (snakeTailX[i] == x && snakeTailY[i] == y)
+            isGameOver = true;
+    }
+
+    if (x == fruitCordX && y == fruitCordY)
+    {
+        playerScore += 10;
+        fruitCordX = rand() % width;
+        fruitCordY = rand() % height;
+        snakeTailLen++;
+    }
+}
+
+int SetDifficulty()
+{
+    int dfc, choice;
+    std::cout << "\nChoose difficulty level:\n1: Easy\n2: Medium\n3: Hard\nNote: Medium is default difficulty\nChoice difficulty level (1-3): ";
+    std::cin >> choice;
+
+    switch (choice)
+    {
+    case 1:
+        dfc = 50;
+        break;
+    case 2:
+        dfc = 100;
+        break;
+    case 3:
+        dfc = 150;
+        break;
+    default:
+        dfc = 100;
+        break;
+    }
+    return dfc;
 }
