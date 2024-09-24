@@ -21,7 +21,7 @@ enum snakeDirection
     DOWN
 };
 
-snakesDirection sDir;
+snakeDirection sDir;
 bool isGameOver;
 
 void GameInit()
@@ -154,4 +154,47 @@ int SetDifficulty()
         break;
     }
     return dfc;
+}
+
+void UserInput()
+{
+    if (_kbhit())
+    {
+        switch (_getch())
+        {
+        case 'a':
+            sDir = LEFT;
+            break;
+        case 'd':
+            sDir = RIGHT;
+            break;
+        case 'w':
+            sDir = UP;
+            break;
+        case 's':
+            sDir = DOWN;
+            break;
+        case 'x':
+            isGameOver = true;
+            break;
+        }
+    }
+}
+
+int main()
+{
+    std::string playerName;
+    std::cout << "Enter player name: ";
+    std::cin >> playerName;
+    int dfc = SetDifficulty();
+
+    GameInit();
+    while (!isGameOver)
+    {
+        GameRender(playerName);
+        UserInput();
+        UpdateGame();
+        Sleep(dfc);
+    }
+    return 0;
 }
